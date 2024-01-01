@@ -11,7 +11,7 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(cors());
 
-app.use("/dashboard", dashboardRoutes);
+app.use("", dashboardRoutes);
 
 
 app.get('/', (req, res) => {

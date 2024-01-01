@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function getAllSpecialists(req, res) {
     try {
-        console.log("Inside get All Leads Fn API")
+        console.log("Inside get All Specialists Fn API")
         const specialists = await prisma.specialist.findMany({
             select: {
                 id: true,

@@ -18,6 +18,7 @@ model Specialist {
   email       String   @unique
   profilePic  String? // Assuming the profile picture is stored as a URL or file path
   leads       Lead[]
+  role        Role
 }
 
 model Lead {
@@ -105,4 +106,10 @@ enum destination {
   Thailand
   IndiaLeh
   IndiaSpiti
+}
+
+enum Role {
+  Specialist
+  CEO
+  Admin
 }
