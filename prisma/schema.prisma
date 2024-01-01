@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Specialist {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  dateCreated DateTime @default(now())
+  phone       String   @unique
+  email       String   @unique
+  profilePic  String? // Assuming the profile picture is stored as a URL or file path
+  leads       Lead[]
+}
+
+model Lead {
+  id                 Int                @id @default(autoincrement())
+  customerName       String
+  phone              String
+  email              String?
+  leadSource         leadSource
+  dateCreated        DateTime           @default(now())
+  tentativeStartDate DateTime?
+  tentativeEndDate   DateTime?
+  addedBy            String?
+  tripType           tripType?
+  noDays             Int?
+  destination        destination?
+  noPax              Int?
+  amountQuoted       Float?
+  notes              String?
+  specialistId       Int
+  specialist         Specialist         @relation(fields: [specialistId], references: [id])
+  QualifiedLead      QualifiedLead[]
+  DisqualifiedLead   DisqualifiedLead[]
+}
+
+model DisqualifiedLead {
+  id     Int    @id @default(autoincrement())
+  leadID Int
+  lead   Lead   @relation(fields: [leadID], references: [id])
+  reason String
+}
+
+model QualifiedLead {
+  id           Int          @id @default(autoincrement())
+  leadID       Int
+  lead         Lead         @relation(fields: [leadID], references: [id])
+  dateCreated  DateTime     @default(now())
+  // The below options can also have a button to copy from the existing lead 
+  email        String
+  startDate    DateTime
+  endDate      DateTime
+  tripType     tripType?
+  noDays       Int?
+  destination  destination?
+  noPax        Int?
+  amountQuoted Float?
+  notes        String
+  Booking      Booking[]
+}
+
+model Booking {
+  id              Int           @id @default(autoincrement())
+  qualifiedLeadID Int
+  qualifiedLead   QualifiedLead @relation(fields: [qualifiedLeadID], references: [id])
+  dateCreated     DateTime      @default(now())
+  // The below options can also have a button to copy from the existing lead 
+  email           String
+  startDate       DateTime
+  endDate         DateTime
+  tripType        tripType
+  noDays          Int
+  destination     destination
+  noPax           Int
+  totalAmountPaid Float
+  PaymentDetails  String
+  notes           String
+}
+
+enum leadSource {
+  TripverWebsite
+  Instagram
+  Referral
+  FriendsAndFamily
+  NonInstagramSocial
+  Search
+  Others
+}
+
+enum tripType {
+  CUSTOM
+  STANDARD
+}
+
+enum destination {
+  Vietnam
+  Thailand
+  IndiaLeh
+  IndiaSpiti
+}

@@ -1,0 +1,10 @@
+1. Specialists can be added by the Admin, CEO, or a God user access.
+2. Leads can be added via a button of add lead. Phone number mandatory. "Added By" string also included.
+3. Leads can be qualified or disqualified using 2 action buttons.
+4. Qualified leads shall have Email necessarily. All major details to be re-added. A button to help with the same.
+5. Booking again to take new fields, can be copied from the qualified booking tab via buttons.
+
+
+Later 
+==========
+1. Show a history of events for each lead.
