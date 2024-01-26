@@ -11,12 +11,11 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(cors());
 
-app.use("", dashboardRoutes);
-
-
 app.get('/', (req, res) => {
   res.send('Hello, Express!');
 });
+
+app.use("/", dashboardRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);

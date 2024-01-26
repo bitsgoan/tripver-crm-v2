@@ -27,7 +27,7 @@ export async function getAllLeads(req, res) {
         const specialists = await prisma.specialist.findMany({
             select: {
                 id: true,
-                fullName: true,
+                // fullName: true,
                 phone: true,
                 email: true
             },
